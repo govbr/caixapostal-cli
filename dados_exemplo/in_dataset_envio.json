@@ -1,0 +1,8 @@
+{
+  "api_key": "XXXXXXXXX",
+  "env": "HOMOLOGACAO",
+  "assunto":"Teste",
+  "template_id": "1",
+  "versao": "1",
+  "tags": ["idade"]
+}
