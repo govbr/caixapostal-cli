@@ -4,10 +4,13 @@ Esta ferramenta de linha de comando (CLI) permite o envio em lote de mensagens p
 
 ## 1. Pré-requisitos
 
-*   **Sistema Operacional:** Linux, macOS ou Windows (com suporte a Make).
+*   **Sistema Operacional:** Linux, macOS e no Windows onde é preciso de WSL Instalado [https://learn.microsoft.com/pt-br/windows/wsl/](https://learn.microsoft.com/pt-br/windows/wsl/)
 *   **Linguagem:** Python 3.10 ou superior instalado.
+*   **make** e **pyenv** instalados.
 *   **Acesso:** Chave de API (`api_key`) e Templates aprovados no Gov.br.
-   
+
+
+
 
 ## 2. Preparando os Arquivos de Envio
 
@@ -124,7 +127,6 @@ make limpar-setup
 *   **Erro "Python 3 não está instalado":** Instale o Python no seu sistema operacional.
 *   **O script roda mas não envia nada:** Verifique se o arquivo JSON tem exatamente o nome `nome_do_csv.csv.json`.
 *   **Erro de Token/Auth:** Verifique se a `api_key` está correta e se o `env` está apontando para o ambiente correto (HOMOLOGACAO/PRODUCAO).
-
 
 
 _____________________________________________________________________
