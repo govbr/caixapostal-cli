@@ -122,8 +122,10 @@ class Sender:
         return None
 
     def log_concat(self, prefix):
-        out_push = [os.path.abspath(os.path.join(self.path_dataset, f)) for f in os.listdir(self.path_dataset) if
-                    f.startswith(prefix) and f.endswith('.log')]
+        log_dir = os.path.dirname(prefix)
+        log_prefix_basename = os.path.basename(prefix)
+        out_push = [os.path.join(log_dir, f) for f in os.listdir(log_dir) if
+                    f.startswith(log_prefix_basename) and f.endswith('.log')]
         out_push.sort()
         with open(f"{prefix}.log", 'w') as log:
             log.write("start,end,status,message,request,response_status,response_json,response_text\n")
