@@ -1,34 +1,42 @@
-VENV = venv
+VENV = /tmp/.venv
 PYTHON = $(VENV)/bin/python3
 PIP = $(VENV)/bin/pip
 DATA_FOLDER = data
-.PHONY: help setup
+
+.PHONY: help setup setup-envio enviar limpar limpar-setup
 
 help:
 	@echo ""
 	@echo "Configuração do CLI Caixa Postal Gov.br para envio de mensagens"
 	@echo ""
 	@echo "Comandos disponíveis:"
-	@echo " make setup			- Configurar o ambiente de envio de mensagens"
-	@echo " make setup-envio 	- Configurar ambiente de envio de mensagens"
-	@echo " make enviar			- Enviar mensagens para a caixa postal"
-	@echo " make limpar 		- Limpar arquivos de envios e logs"
-	@echo " make setup-limpar 	- Remover ambiente virtual e arquivos de configuração"
+	@echo " make setup          - Configurar o ambiente completo"
+	@echo " make setup-envio    - Reconfigurar envio"
+	@echo " make enviar         - Enviar mensagens"
+	@echo " make limpar         - Limpar arquivos"
+	@echo " make limpar-setup   - Reset total"
 	@echo ""
 
 setup:
-	@command -v python3 >/dev/null 2>&1 || { echo "Python 3 não está instalado. Por favor, instale Python 3 primeiro."; exit 1; }
+	@command -v python3 >/dev/null 2>&1 || { echo "Python 3 não está instalado."; exit 1; }
 	@echo "Criando ambiente virtual..."
 	python3 -m venv $(VENV)
+
+	@echo "Validando ambiente..."
+	@test -f $(PYTHON) || { echo "Erro ao criar venv"; exit 1; }
+
 	@echo "Instalando dependências..."
-	$(PIP) install --upgrade pip
-	$(PIP) install -r requirements.txt
+	$(PYTHON) -m pip install --upgrade pip
+	$(PYTHON) -m pip install -r requirements.txt
+
+	@echo "Executando setup..."
 	$(PYTHON) setup_wizard.py
-	@echo "Configuração concluída! Use 'make enviar' para enviar mensagens."
+
+	@echo "Configuração concluída! Use make enviar para enviar mensagens."
 
 setup-envio:
+	@echo "Executando setup de envio..."
 	$(PYTHON) setup_wizard.py
-	@echo "Configuração concluída! Use 'make enviar' para enviar mensagens."
 
 enviar:
 	$(PYTHON) sender.py
